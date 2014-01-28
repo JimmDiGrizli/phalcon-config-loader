@@ -65,6 +65,14 @@ class ConfigLoader
     }
 
     /**
+     * @return array
+     */
+    public function getAdapters()
+    {
+        return $this->adapters;
+    }
+
+    /**
      * @param string $path
      * @return null|string
      */

@@ -13,14 +13,14 @@
         >
     <testsuites>
         <testsuite name="Bootstrap">
-            <directory>./tests/GetSky/Phalcon/ConfigLoader</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
             <directory suffix=".php">
-                ./tests/GetSky/Phalcon/ConfigLoader
+                ./tests
             </directory>
         </whitelist>
     </filter>
