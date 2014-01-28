@@ -6,7 +6,6 @@ use Phalcon\Config;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Loader;
 use PHPUnit_Framework_TestCase;
-use ReflectionClass;
 use ReflectionMethod;
 
 class ConfigLoaderTest extends PHPUnit_Framework_TestCase
@@ -61,9 +60,9 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @dataProvider pathProvider
+     * @dataProvider pathExtensionProvider
      */
-    public function testInitNamespace($path, $extension)
+    public function testExtractExtension($path, $extension)
     {
         $test = new ConfigLoader();
 
@@ -74,8 +73,39 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($extension, $result);
     }
 
+    /**
+     * @dataProvider pathProvider
+     */
+    public function testCreate($path, $instance, $array)
+    {
+        $test = new ConfigLoader();
+        $result = $test->create($path);
+        $this->assertInstanceOf($instance, $result);
+        $this->assertEquals($array, $result->toArray());
+    }
 
-    public function pathProvider()
+
+    /**
+     * @expectedException \GetSky\Phalcon\ConfigLoader\ExtensionNotFoundException
+     */
+    public function testExtensionNotFoundException()
+    {
+        $test = new ConfigLoader();
+        $test->create('test');
+
+    }
+
+    /**
+     * @expectedException  \GetSky\Phalcon\ConfigLoader\AdapterNotFoundException
+     */
+    public function testAdapterNotFoundException()
+    {
+        $test = new ConfigLoader();
+        $test->create('test.yaml');
+
+    }
+
+    public function pathExtensionProvider()
     {
         return [
             ['test.yml', 'yml'],
@@ -83,6 +113,22 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
             ['test.ini', 'ini'],
             ['.ini', 'ini'],
             ['test', null]
+        ];
+    }
+
+    public function pathProvider()
+    {
+        return [
+            [
+                'test.ini',
+                'Phalcon\Config\Adapter\Ini',
+                ['test' => ['test' => true]]
+            ],
+            [
+                'tests/test.json',
+                'Phalcon\Config\Adapter\Json',
+                ['test' => ['test' => true]]
+            ]
         ];
     }
 } 
