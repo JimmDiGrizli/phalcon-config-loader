@@ -6,9 +6,13 @@ use Phalcon\Config;
 use Phalcon\DI\FactoryDefault;
 use Phalcon\Loader;
 use PHPUnit_Framework_TestCase;
+use ReflectionClass;
+use ReflectionMethod;
 
 class ConfigLoaderTest extends PHPUnit_Framework_TestCase
 {
+    const TEST_CLASS = 'GetSky\Phalcon\ConfigLoader\ConfigLoader';
+
     public function testGetAdapters()
     {
         $test = new ConfigLoader();
@@ -56,5 +60,29 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals([], $test->getAdapters());
     }
 
+    /**
+     * @dataProvider pathProvider
+     */
+    public function testInitNamespace($path, $extension)
+    {
+        $test = new ConfigLoader();
 
+        $method = new ReflectionMethod(self::TEST_CLASS, 'extractExtension');
+        $method->setAccessible(true);
+
+        $result = $method->invoke($test, $path);
+        $this->assertEquals($extension, $result);
+    }
+
+
+    public function pathProvider()
+    {
+        return [
+            ['test.yml', 'yml'],
+            ['test.json', 'json'],
+            ['test.ini', 'ini'],
+            ['.ini', 'ini'],
+            ['test', null]
+        ];
+    }
 } 
