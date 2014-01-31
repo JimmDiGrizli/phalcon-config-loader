@@ -15,7 +15,8 @@ class ConfigLoader
      */
     protected $adapters = [
         'ini' => '\Phalcon\Config\Adapter\Ini',
-        'json' => '\Phalcon\Config\Adapter\Json'
+        'json' => '\Phalcon\Config\Adapter\Json',
+        'yml' => '\GetSky\Phalcon\ConfigLoader\Adapter\Yaml'
     ];
 
     /**
