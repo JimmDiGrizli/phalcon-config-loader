@@ -12,7 +12,8 @@
     ],
     "require": {
         "php": ">=5.4",
-        "ext-phalcon": "*"
+        "ext-phalcon": "*",
+        "symfony/yaml": "master"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"

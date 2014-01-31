@@ -19,7 +19,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             [
                 'ini' => '\Phalcon\Config\Adapter\Ini',
-                'json' => '\Phalcon\Config\Adapter\Json'
+                'json' => '\Phalcon\Config\Adapter\Json',
+                'yml' => '\GetSky\Phalcon\ConfigLoader\Adapter\Yaml'
             ],
             $test->getAdapters()
         );
@@ -46,7 +47,10 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
         $test->remove('ini');
 
         $this->assertEquals(
-            ['json' => '\Phalcon\Config\Adapter\Json'],
+            [
+                'json' => '\Phalcon\Config\Adapter\Json',
+                'yml' => '\GetSky\Phalcon\ConfigLoader\Adapter\Yaml'
+            ],
             $test->getAdapters()
         );
     }
@@ -127,6 +131,11 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
             [
                 'tests/test.json',
                 'Phalcon\Config\Adapter\Json',
+                ['test' => ['test' => true]]
+            ],
+            [
+                'tests/test.yml',
+                '\GetSky\Phalcon\ConfigLoader\Adapter\Yaml',
                 ['test' => ['test' => true]]
             ]
         ];
