@@ -41,6 +41,19 @@ class ConfigLoader
     }
 
     /**
+     * @param string $path
+     * @return null|string
+     */
+    protected function extractExtension($path)
+    {
+        $fileInfo = pathinfo($path);
+        if (!isset($fileInfo['extension'])) {
+            return null;
+        }
+        return $fileInfo['extension'];
+    }
+
+    /**
      * @param string $name
      * @param string $class
      */
@@ -71,18 +84,5 @@ class ConfigLoader
     public function getAdapters()
     {
         return $this->adapters;
-    }
-
-    /**
-     * @param string $path
-     * @return null|string
-     */
-    protected function extractExtension($path)
-    {
-        $fileInfo = pathinfo($path);
-        if (!isset($fileInfo['extension'])) {
-            return null;
-        }
-        return $fileInfo['extension'];
     }
 } 

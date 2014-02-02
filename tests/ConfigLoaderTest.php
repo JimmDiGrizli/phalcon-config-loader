@@ -88,7 +88,6 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($array, $result->toArray());
     }
 
-
     /**
      * @expectedException \GetSky\Phalcon\ConfigLoader\ExtensionNotFoundException
      */
