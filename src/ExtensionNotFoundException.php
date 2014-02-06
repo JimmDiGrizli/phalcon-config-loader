@@ -6,4 +6,4 @@ use Exception;
 class ExtensionNotFoundException extends Exception
 {
 
-} 
+}

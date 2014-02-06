@@ -6,4 +6,4 @@ use Exception;
 class AdapterNotFoundException extends Exception
 {
 
-} 
+}

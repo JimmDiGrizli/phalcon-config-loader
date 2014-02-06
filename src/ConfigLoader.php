@@ -85,4 +85,4 @@ class ConfigLoader
     {
         return $this->adapters;
     }
-} 
+}

@@ -16,7 +16,9 @@ class Yaml extends Config
     {
         if (extension_loaded('yaml')) {
             if (false === $result = yaml_parse_file($filePath)) {
-                throw new Exception("Configuration file $filePath can't be loaded");
+                throw new Exception(
+                    "Configuration file $filePath can't be loaded"
+                );
             }
         }
 
