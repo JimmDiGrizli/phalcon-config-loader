@@ -1,2 +1,2 @@
-Component to load configuration from various files
+Component to load configuration from various files [![Build Status](https://travis-ci.org/JimmDiGrizli/phalcon-config-loader.png?branch=develop)](https://travis-ci.org/JimmDiGrizli/phalcon-config-loader)
 ==================================================
