@@ -16,7 +16,6 @@
         "symfony/yaml": "master"
     },
     "require-dev": {
-        "phalcon/devtools": "dev-master",
         "phpunit/phpunit": "3.7.*",
         "squizlabs/php_codesniffer": "1.*",
         "codeception/codeception": "*"

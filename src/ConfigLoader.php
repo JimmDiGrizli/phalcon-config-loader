@@ -4,6 +4,8 @@ namespace GetSky\Phalcon\ConfigLoader;
 use Phalcon\Config as BaseConfig;
 
 /**
+ * Class to load configuration from various files
+ *
  * Class Config
  * @package GetSky\Phalcon\ConfigLoader
  */
