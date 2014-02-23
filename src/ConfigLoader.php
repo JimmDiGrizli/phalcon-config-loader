@@ -12,6 +12,8 @@ use Phalcon\Config as BaseConfig;
 class ConfigLoader
 {
 
+    const RESOURCES = '%res:';
+
     /**
      * @var array
      */
@@ -36,10 +38,28 @@ class ConfigLoader
         }
 
         if (isset($this->adapters[$extension])) {
-            return new $this->adapters[$extension]($path);
+            $baseConfig = new $this->adapters[$extension]($path);
+            $this->importResource($baseConfig);
+            print_r($baseConfig);
+            return $baseConfig;
         }
 
         throw new AdapterNotFoundException("Adapter can be found for $path");
+    }
+
+    protected function importResource(BaseConfig $baseConfig)
+    {
+        foreach ($baseConfig as $key => $value) {
+            if ($value instanceof BaseConfig) {
+                $this->importResource($value);
+            } else {
+                if (substr_count($value, self::RESOURCES)) {
+                    $baseConfig[$key] = $this->create(
+                        substr($value, strlen(self::RESOURCES))
+                    );
+                }
+            }
+        }
     }
 
     /**
