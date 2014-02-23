@@ -57,6 +57,11 @@ class ConfigLoader
                     $baseConfig[$key] = $this->create(
                         substr($value, strlen(self::RESOURCES))
                     );
+                } elseif($key == self::RESOURCES) {
+                    $resources = $this->create($value);
+                    foreach ($resources as $resKey => $resValue) {
+                        $baseConfig[$resKey] = $resValue;
+                    };
                 }
             }
         }
