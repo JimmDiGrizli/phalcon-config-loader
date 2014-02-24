@@ -80,7 +80,18 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider pathProvider
      */
-    public function testCreate($path, $instance, $array)
+    public function testCreateWithoutImportResources($path, $instance, $array)
+    {
+        $test = new ConfigLoader();
+        $result = $test->create($path, false);
+        $this->assertInstanceOf($instance, $result);
+        $this->assertEquals($array, $result->toArray());
+    }
+
+    /**
+     * @dataProvider pathProviderImportResource
+     */
+    public function testCreateWithImportResources($path, $instance, $array)
     {
         $test = new ConfigLoader();
         $result = $test->create($path);
@@ -125,17 +136,83 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
             [
                 'test.ini',
                 'Phalcon\Config\Adapter\Ini',
-                ['test' => ['test' => true]]
+                [
+                    'test' => [
+                        'test' => true,
+                        'exp' => '%res:import.ini',
+                        '%res:' => 'import.ini'
+                    ]
+                ]
             ],
             [
                 'tests/test.json',
                 'Phalcon\Config\Adapter\Json',
-                ['test' => ['test' => true]]
+                [
+                    'test' => [
+                        'test' => true,
+                        'exp' => '%res:import.ini',
+                        '%res:' => 'import.ini'
+                    ]
+                ]
             ],
             [
                 'tests/test.yml',
                 '\GetSky\Phalcon\ConfigLoader\Adapter\Yaml',
-                ['test' => ['test' => true]]
+                [
+                    'test' => [
+                        'test' => true,
+                        'exp' => '%res:import.ini',
+                        '%res:' => 'import.ini'
+                    ]
+                ]
+            ],
+        ];
+    }
+
+    public function pathProviderImportResource()
+    {
+        return [
+            [
+                'test.ini',
+                'Phalcon\Config\Adapter\Ini',
+                [
+                    'test' => [
+                        'test' => true,
+                        'exp' => [
+                            'import' => true
+                        ],
+                        '%res:' => 'import.ini',
+                        'import' => true
+                    ]
+                ]
+            ],
+            [
+                'tests/test.json',
+                'Phalcon\Config\Adapter\Json',
+                [
+                    'test' => [
+                        'test' => true,
+                        'exp' => [
+                            'import' => true
+                        ],
+                        '%res:' => 'import.ini',
+                        'import' => true
+                    ]
+                ]
+            ],
+            [
+                'tests/test.yml',
+                '\GetSky\Phalcon\ConfigLoader\Adapter\Yaml',
+                [
+                    'test' => [
+                        'test' => true,
+                        'exp' => [
+                            'import' => true
+                        ],
+                        '%res:' => 'import.ini',
+                        'import' => true
+                    ]
+                ]
             ]
         ];
     }

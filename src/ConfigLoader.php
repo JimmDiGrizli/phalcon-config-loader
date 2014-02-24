@@ -25,11 +25,12 @@ class ConfigLoader
 
     /**
      * @param string $path
+     * @param bool $import
      * @return BaseConfig
      * @throws ExtensionNotFoundException
      * @throws AdapterNotFoundException
      */
-    public function create($path)
+    public function create($path, $import = true)
     {
         $extension = $this->extractExtension($path);
 
@@ -39,7 +40,9 @@ class ConfigLoader
 
         if (isset($this->adapters[$extension])) {
             $baseConfig = new $this->adapters[$extension]($path);
-            $this->importResource($baseConfig);
+            if ($import === true) {
+                $this->importResource($baseConfig);
+            }
             return $baseConfig;
         }
 
@@ -56,7 +59,7 @@ class ConfigLoader
                     $baseConfig[$key] = $this->create(
                         substr($value, strlen(self::RESOURCES))
                     );
-                } elseif ($key == self::RESOURCES) {
+                } elseif ($key === self::RESOURCES) {
                     $resources = $this->create($value);
                     foreach ($resources as $resKey => $resValue) {
                         $baseConfig[$resKey] = $resValue;

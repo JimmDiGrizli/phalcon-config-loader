@@ -8,4 +8,6 @@ require_once __DIR__ . '/../src/Adapter/Yaml.php';
 
 
 $configloader = new \GetSky\Phalcon\ConfigLoader\ConfigLoader();
-$configloader->create('config.ini');
+var_dump($configloader->create('config.ini'));
+
+
