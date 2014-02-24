@@ -40,7 +40,6 @@ class ConfigLoader
         if (isset($this->adapters[$extension])) {
             $baseConfig = new $this->adapters[$extension]($path);
             $this->importResource($baseConfig);
-            print_r($baseConfig);
             return $baseConfig;
         }
 
