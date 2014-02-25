@@ -2,6 +2,7 @@
 namespace GetSky\Phalcon\ConfigLoader;
 
 use Phalcon\Config as BaseConfig;
+use Phalcon\Di;
 
 /**
  * Class to load configuration from various files
@@ -12,8 +13,19 @@ use Phalcon\Config as BaseConfig;
 class ConfigLoader
 {
 
-    const RESOURCES = '%res:';
-
+    /**
+     * Variable for import resources
+     */
+    const RESOURCES_KEY = '%res%';
+    const RESOURCES_VALUE = '%res:';
+    /**
+     * Variable for connection environment
+     */
+    const ENVIRONMENT = '%environment%';
+    /**
+     * @var string
+     */
+    protected $environment;
     /**
      * @var array
      */
@@ -22,6 +34,14 @@ class ConfigLoader
         'json' => '\Phalcon\Config\Adapter\Json',
         'yml' => '\GetSky\Phalcon\ConfigLoader\Adapter\Yaml'
     ];
+
+    /**
+     * @param string $environment
+     */
+    public function __construct($environment)
+    {
+        $this->environment = $environment;
+    }
 
     /**
      * @param string $path
@@ -49,26 +69,6 @@ class ConfigLoader
         throw new AdapterNotFoundException("Adapter can be found for $path");
     }
 
-    protected function importResource(BaseConfig $baseConfig)
-    {
-        foreach ($baseConfig as $key => $value) {
-            if ($value instanceof BaseConfig) {
-                $this->importResource($value);
-            } else {
-                if (substr_count($value, self::RESOURCES)) {
-                    $baseConfig[$key] = $this->create(
-                        substr($value, strlen(self::RESOURCES))
-                    );
-                } elseif ($key === self::RESOURCES) {
-                    $resources = $this->create($value);
-                    foreach ($resources as $resKey => $resValue) {
-                        $baseConfig[$resKey] = $resValue;
-                    };
-                }
-            }
-        }
-    }
-
     /**
      * @param string $path
      * @return null|string
@@ -80,6 +80,35 @@ class ConfigLoader
             return null;
         }
         return $fileInfo['extension'];
+    }
+
+    protected function importResource(BaseConfig $baseConfig)
+    {
+        foreach ($baseConfig as $key => $value) {
+            if ($value instanceof BaseConfig) {
+                $this->importResource($value);
+            } else {
+
+                if ($key === self::RESOURCES_KEY) {
+                    $resources = $this->create($value);
+                    foreach ($resources as $resKey => $resValue) {
+                        $baseConfig[$resKey] = $resValue;
+                    };
+                } elseif (substr_count($value, self::RESOURCES_VALUE)) {
+                    $baseConfig[$key] = $this->create(
+                        substr($value, strlen(self::RESOURCES_VALUE))
+                    );
+                }
+
+                if (substr_count($value, self::ENVIRONMENT)) {
+                    $baseConfig[$key] = str_replace(
+                        self::ENVIRONMENT,
+                        $this->environment,
+                        $value
+                    );
+                }
+            }
+        }
     }
 
     /**

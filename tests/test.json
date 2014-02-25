@@ -2,6 +2,6 @@
     "test": {
         "test": true,
         "exp": "%res:import.ini",
-        "%res:": "import.ini"
+        "%res%": "import.ini"
     }
 }

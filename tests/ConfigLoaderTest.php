@@ -14,7 +14,7 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
 
     public function testGetAdapters()
     {
-        $test = new ConfigLoader();
+        $test = new ConfigLoader('dev');
 
         $this->assertEquals(
             [
@@ -28,7 +28,7 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
 
     public function testAddAdapter()
     {
-        $test = new ConfigLoader();
+        $test = new ConfigLoader('dev');
         $test->add('yml', '\Phalcon\Config\Adapter\Yaml');
 
         $this->assertEquals(
@@ -43,7 +43,7 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
 
     public function testRemoveAdapter()
     {
-        $test = new ConfigLoader();
+        $test = new ConfigLoader('dev');
         $test->remove('ini');
 
         $this->assertEquals(
@@ -57,7 +57,7 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
 
     public function testRemoveAllAdapters()
     {
-        $test = new ConfigLoader();
+        $test = new ConfigLoader('dev');
         $test->removeAll();
 
         $this->assertEquals([], $test->getAdapters());
@@ -68,7 +68,7 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
      */
     public function testExtractExtension($path, $extension)
     {
-        $test = new ConfigLoader();
+        $test = new ConfigLoader('dev');
 
         $method = new ReflectionMethod(self::TEST_CLASS, 'extractExtension');
         $method->setAccessible(true);
@@ -80,9 +80,14 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider pathProvider
      */
-    public function testCreateWithoutImportResources($path, $instance, $array)
+    public function testCreateWithoutImportResources(
+        $path,
+        $instance,
+        $env,
+        $array
+    )
     {
-        $test = new ConfigLoader();
+        $test = new ConfigLoader($env);
         $result = $test->create($path, false);
         $this->assertInstanceOf($instance, $result);
         $this->assertEquals($array, $result->toArray());
@@ -91,9 +96,14 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
     /**
      * @dataProvider pathProviderImportResource
      */
-    public function testCreateWithImportResources($path, $instance, $array)
+    public function testCreateWithImportResources(
+        $path,
+        $instance,
+        $env,
+        $array
+    )
     {
-        $test = new ConfigLoader();
+        $test = new ConfigLoader($env);
         $result = $test->create($path);
         $this->assertInstanceOf($instance, $result);
         $this->assertEquals($array, $result->toArray());
@@ -104,7 +114,7 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
      */
     public function testExtensionNotFoundException()
     {
-        $test = new ConfigLoader();
+        $test = new ConfigLoader('dev');
         $test->create('test');
 
     }
@@ -114,7 +124,7 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
      */
     public function testAdapterNotFoundException()
     {
-        $test = new ConfigLoader();
+        $test = new ConfigLoader('dev');
         $test->create('test.yaml');
 
     }
@@ -136,33 +146,36 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
             [
                 'test.ini',
                 'Phalcon\Config\Adapter\Ini',
+                'dev',
                 [
                     'test' => [
                         'test' => true,
                         'exp' => '%res:import.ini',
-                        '%res:' => 'import.ini'
+                        '%res%' => 'import.ini'
                     ]
                 ]
             ],
             [
                 'tests/test.json',
                 'Phalcon\Config\Adapter\Json',
+                'dev',
                 [
                     'test' => [
                         'test' => true,
                         'exp' => '%res:import.ini',
-                        '%res:' => 'import.ini'
+                        '%res%' => 'import.ini'
                     ]
                 ]
             ],
             [
                 'tests/test.yml',
                 '\GetSky\Phalcon\ConfigLoader\Adapter\Yaml',
+                'dev',
                 [
                     'test' => [
                         'test' => true,
                         'exp' => '%res:import.ini',
-                        '%res:' => 'import.ini'
+                        '%res%' => 'import.ini'
                     ]
                 ]
             ],
@@ -175,42 +188,102 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
             [
                 'test.ini',
                 'Phalcon\Config\Adapter\Ini',
+                'dev',
                 [
                     'test' => [
                         'test' => true,
                         'exp' => [
-                            'import' => true
+                            'import' => true,
+                            'env' => 'dev'
                         ],
-                        '%res:' => 'import.ini',
-                        'import' => true
+                        '%res%' => 'import.ini',
+                        'import' => true,
+                        'env' => 'dev'
                     ]
                 ]
             ],
             [
                 'tests/test.json',
                 'Phalcon\Config\Adapter\Json',
+                'dev',
                 [
                     'test' => [
                         'test' => true,
                         'exp' => [
-                            'import' => true
+                            'import' => true,
+                            'env' => 'dev'
                         ],
-                        '%res:' => 'import.ini',
-                        'import' => true
+                        '%res%' => 'import.ini',
+                        'import' => true,
+                        'env' => 'dev'
                     ]
                 ]
             ],
             [
                 'tests/test.yml',
                 '\GetSky\Phalcon\ConfigLoader\Adapter\Yaml',
+                'dev',
                 [
                     'test' => [
                         'test' => true,
                         'exp' => [
-                            'import' => true
+                            'import' => true,
+                            'env' => 'dev'
                         ],
-                        '%res:' => 'import.ini',
-                        'import' => true
+                        '%res%' => 'import.ini',
+                        'import' => true,
+                        'env' => 'dev'
+                    ]
+                ]
+            ],
+            [
+                'test.ini',
+                'Phalcon\Config\Adapter\Ini',
+                'prod',
+                [
+                    'test' => [
+                        'test' => true,
+                        'exp' => [
+                            'import' => true,
+                            'env' => 'prod'
+                        ],
+                        '%res%' => 'import.ini',
+                        'import' => true,
+                        'env' => 'prod'
+                    ]
+                ]
+            ],
+            [
+                'tests/test.json',
+                'Phalcon\Config\Adapter\Json',
+                'prod',
+                [
+                    'test' => [
+                        'test' => true,
+                        'exp' => [
+                            'import' => true,
+                            'env' => 'prod'
+                        ],
+                        '%res%' => 'import.ini',
+                        'import' => true,
+                        'env' => 'prod'
+                    ]
+                ]
+            ],
+            [
+                'tests/test.yml',
+                '\GetSky\Phalcon\ConfigLoader\Adapter\Yaml',
+                'prod',
+                [
+                    'test' => [
+                        'test' => true,
+                        'exp' => [
+                            'import' => true,
+                            'env' => 'prod'
+                        ],
+                        '%res%' => 'import.ini',
+                        'import' => true,
+                        'env' => 'prod'
                     ]
                 ]
             ]
