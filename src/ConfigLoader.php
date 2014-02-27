@@ -38,7 +38,7 @@ class ConfigLoader
     /**
      * @param string $environment
      */
-    public function __construct($environment)
+    public function __construct($environment = null)
     {
         $this->environment = $environment;
     }
