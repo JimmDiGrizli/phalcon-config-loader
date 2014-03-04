@@ -54,6 +54,8 @@ class ConfigLoader
     {
         $extension = $this->extractExtension($path);
 
+        $path = str_replace(self::ENVIRONMENT, $this->environment, $path);
+
         if ($extension === null) {
             throw new ExtensionNotFoundException("Extension not found ($path)");
         }
