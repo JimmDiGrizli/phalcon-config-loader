@@ -91,9 +91,7 @@ class ConfigLoader
 
                 if ($key === self::RESOURCES_KEY) {
                     $resources = $this->create($value);
-                    foreach ($resources as $resKey => $resValue) {
-                        $baseConfig[$resKey] = $resValue;
-                    };
+                    $baseConfig->merge($resources);
                 } elseif (substr_count($value, self::RESOURCES_VALUE)) {
                     $baseConfig[$key] = $this->create(
                         substr($value, strlen(self::RESOURCES_VALUE))
