@@ -179,6 +179,18 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                     ]
                 ]
             ],
+            [
+                'test_%environment%.ini',
+                'Phalcon\Config\Adapter\Ini',
+                'dev',
+                [
+                    'test' => [
+                        'test' => true,
+                        'exp' => '%res:import.ini',
+                        '%res%' => 'import.ini'
+                    ]
+                ]
+            ]
         ];
     }
 
@@ -284,6 +296,23 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                         '%res%' => 'import.ini',
                         'import' => true,
                         'env' => 'prod'
+                    ]
+                ]
+            ],
+            [
+                'test.ini',
+                'Phalcon\Config\Adapter\Ini',
+                null,
+                [
+                    'test' => [
+                        'test' => true,
+                        'exp' => [
+                            'import' => true,
+                            'env' => null
+                        ],
+                        '%res%' => 'import.ini',
+                        'import' => true,
+                        'env' => null
                     ]
                 ]
             ]

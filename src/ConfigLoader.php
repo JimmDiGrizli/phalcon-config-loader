@@ -38,7 +38,7 @@ class ConfigLoader
     /**
      * @param string $environment
      */
-    public function __construct($environment)
+    public function __construct($environment = null)
     {
         $this->environment = $environment;
     }
@@ -53,6 +53,8 @@ class ConfigLoader
     public function create($path, $import = true)
     {
         $extension = $this->extractExtension($path);
+
+        $path = str_replace(self::ENVIRONMENT, $this->environment, $path);
 
         if ($extension === null) {
             throw new ExtensionNotFoundException("Extension not found ($path)");
