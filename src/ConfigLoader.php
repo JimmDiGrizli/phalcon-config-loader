@@ -61,11 +61,15 @@ class ConfigLoader
         }
 
         if (isset($this->adapters[$extension])) {
+            /**
+             * @var $baseConfig BaseConfig
+             */
             $baseConfig = new $this->adapters[$extension]($path);
             if ($import === true) {
-                $this->importResource($baseConfig);
+                $this->importResource($baseConfig); 8
             }
-            return $baseConfig;
+            //unset($baseConfig['%res%']);
+            return new BaseConfig($baseConfig->toArray());
         }
 
         throw new AdapterNotFoundException("Adapter can be found for $path");
@@ -94,6 +98,7 @@ class ConfigLoader
                 if ($key === self::RESOURCES_KEY) {
                     $resources = $this->create($value);
                     $baseConfig->merge($resources);
+                    $baseConfig->offsetUnset($key);
                 } elseif (substr_count($value, self::RESOURCES_VALUE)) {
                     $baseConfig[$key] = $this->create(
                         substr($value, strlen(self::RESOURCES_VALUE))
