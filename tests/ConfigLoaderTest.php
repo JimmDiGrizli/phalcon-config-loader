@@ -82,14 +82,13 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateWithoutImportResources(
         $path,
-        $instance,
         $env,
         $array
     )
     {
         $test = new ConfigLoader($env);
         $result = $test->create($path, false);
-        $this->assertInstanceOf($instance, $result);
+        $this->assertInstanceOf("Phalcon\\Config", $result);
         $this->assertEquals($array, $result->toArray());
     }
 
@@ -98,14 +97,13 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
      */
     public function testCreateWithImportResources(
         $path,
-        $instance,
         $env,
         $array
     )
     {
         $test = new ConfigLoader($env);
         $result = $test->create($path);
-        $this->assertInstanceOf($instance, $result);
+        $this->assertInstanceOf("Phalcon\\Config", $result);
         $this->assertEquals($array, $result->toArray());
     }
 
@@ -145,7 +143,6 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
         return [
             [
                 'test.ini',
-                'Phalcon\Config\Adapter\Ini',
                 'dev',
                 [
                     'test' => [
@@ -157,7 +154,6 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
             ],
             [
                 'tests/test.json',
-                'Phalcon\Config\Adapter\Json',
                 'dev',
                 [
                     'test' => [
@@ -169,7 +165,6 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
             ],
             [
                 'tests/test.yml',
-                '\GetSky\Phalcon\ConfigLoader\Adapter\Yaml',
                 'dev',
                 [
                     'test' => [
@@ -181,7 +176,6 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
             ],
             [
                 'test_%environment%.ini',
-                'Phalcon\Config\Adapter\Ini',
                 'dev',
                 [
                     'test' => [
@@ -199,7 +193,6 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
         return [
             [
                 'test.ini',
-                'Phalcon\Config\Adapter\Ini',
                 'dev',
                 [
                     'test' => [
@@ -215,7 +208,6 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
             ],
             [
                 'tests/test.json',
-                'Phalcon\Config\Adapter\Json',
                 'dev',
                 [
                     'test' => [
@@ -231,7 +223,6 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
             ],
             [
                 'tests/test.yml',
-                '\GetSky\Phalcon\ConfigLoader\Adapter\Yaml',
                 'dev',
                 [
                     'test' => [
@@ -247,7 +238,6 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
             ],
             [
                 'test.ini',
-                'Phalcon\Config\Adapter\Ini',
                 'prod',
                 [
                     'test' => [
@@ -263,7 +253,6 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
             ],
             [
                 'tests/test.json',
-                'Phalcon\Config\Adapter\Json',
                 'prod',
                 [
                     'test' => [
@@ -279,7 +268,6 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
             ],
             [
                 'tests/test.yml',
-                '\GetSky\Phalcon\ConfigLoader\Adapter\Yaml',
                 'prod',
                 [
                     'test' => [
@@ -295,7 +283,6 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
             ],
             [
                 'test.ini',
-                'Phalcon\Config\Adapter\Ini',
                 null,
                 [
                     'test' => [

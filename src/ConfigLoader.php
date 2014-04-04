@@ -68,7 +68,6 @@ class ConfigLoader
             if ($import === true) {
                 $this->importResource($baseConfig);
             }
-            //unset($baseConfig['%res%']);
             return new BaseConfig($baseConfig->toArray());
         }
 
