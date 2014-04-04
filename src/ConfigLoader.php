@@ -66,7 +66,7 @@ class ConfigLoader
              */
             $baseConfig = new $this->adapters[$extension]($path);
             if ($import === true) {
-                $this->importResource($baseConfig); 8
+                $this->importResource($baseConfig);
             }
             //unset($baseConfig['%res%']);
             return new BaseConfig($baseConfig->toArray());
