@@ -148,7 +148,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                     'test' => [
                         'test' => true,
                         'exp' => '%res:import.ini',
-                        '%res%' => 'import.ini'
+                        '%res%' => 'import.ini',
+                        '%module%' => '::SERVICES'
                     ]
                 ]
             ],
@@ -159,7 +160,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                     'test' => [
                         'test' => true,
                         'exp' => '%res:import.ini',
-                        '%res%' => 'import.ini'
+                        '%res%' => 'import.ini',
+                        '%module%' => '::SERVICES'
                     ]
                 ]
             ],
@@ -170,7 +172,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                     'test' => [
                         'test' => true,
                         'exp' => '%res:import.ini',
-                        '%res%' => 'import.ini'
+                        '%res%' => 'import.ini',
+                        '%module%' => '::SERVICES'
                     ]
                 ]
             ],
@@ -181,7 +184,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                     'test' => [
                         'test' => true,
                         'exp' => '%res:import.ini',
-                        '%res%' => 'import.ini'
+                        '%res%' => 'import.ini',
+                        '%module%' => '::SERVICES'
                     ]
                 ]
             ]
@@ -202,7 +206,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                             'env' => 'dev'
                         ],
                         'import' => true,
-                        'env' => 'dev'
+                        'env' => 'dev',
+                        'module' => true
                     ]
                 ]
             ],
@@ -217,7 +222,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                             'env' => 'dev'
                         ],
                         'import' => true,
-                        'env' => 'dev'
+                        'env' => 'dev',
+                        'module' => true
                     ]
                 ]
             ],
@@ -232,7 +238,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                             'env' => 'dev'
                         ],
                         'import' => true,
-                        'env' => 'dev'
+                        'env' => 'dev',
+                        'module' => true
                     ]
                 ]
             ],
@@ -247,7 +254,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                             'env' => 'prod'
                         ],
                         'import' => true,
-                        'env' => 'prod'
+                        'env' => 'prod',
+                        'module' => true
                     ]
                 ]
             ],
@@ -262,7 +270,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                             'env' => 'prod'
                         ],
                         'import' => true,
-                        'env' => 'prod'
+                        'env' => 'prod',
+                        'module' => true
                     ]
                 ]
             ],
@@ -277,7 +286,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                             'env' => 'prod'
                         ],
                         'import' => true,
-                        'env' => 'prod'
+                        'env' => 'prod',
+                        'module' => true
                     ]
                 ]
             ],
@@ -292,7 +302,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                             'env' => null
                         ],
                         'import' => true,
-                        'env' => null
+                        'env' => null,
+                        'module' => true
                     ]
                 ]
             ]

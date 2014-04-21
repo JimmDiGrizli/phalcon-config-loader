@@ -18,6 +18,8 @@ class ConfigLoader
      */
     const RESOURCES_KEY = '%res%';
     const RESOURCES_VALUE = '%res:';
+    const MODULE_KEY = '%module%';
+    const MODULE_VALUE = '%module:';
     /**
      * Variable for connection environment
      */
@@ -95,13 +97,41 @@ class ConfigLoader
             } else {
 
                 if ($key === self::RESOURCES_KEY) {
+
                     $resources = $this->create($value);
                     $baseConfig->merge($resources);
                     $baseConfig->offsetUnset($key);
+
                 } elseif (substr_count($value, self::RESOURCES_VALUE)) {
+
                     $baseConfig[$key] = $this->create(
                         substr($value, strlen(self::RESOURCES_VALUE))
                     );
+
+                } elseif ($key === self::MODULE_KEY) {
+                    $val = explode('::',$value);
+
+                    /**
+                     * @var $module \GetSky\Phalcon\Bootstrap\Module
+                     */
+                    $module = $val[0] . '\Module';
+
+                    if ($val[1] == 'SERVICES') {
+                        $resources = $this->create(
+                            $module::DIR . $module::SERVICES
+                        );
+                    } elseif ($val[1] == 'CONFIG') {
+                        $resources = $this->create(
+                            $module::DIR . $module::CONFIG
+                        );
+                    } else {
+                        $resources = $this->create(
+                            $module::DIR . $module::$val[1]
+                        );
+                    }
+
+                    $baseConfig->merge($resources);
+                    $baseConfig->offsetUnset($key);
                 }
 
                 if (substr_count($value, self::ENVIRONMENT)) {
