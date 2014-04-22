@@ -109,7 +109,7 @@ class ConfigLoader
                     );
 
                 } elseif ($key === self::MODULE_KEY) {
-                    $val = explode('::',$value);
+                    $val = explode('::', $value);
 
                     /**
                      * @var $module \GetSky\Phalcon\Bootstrap\Module
