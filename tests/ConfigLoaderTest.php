@@ -149,7 +149,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                         'test' => true,
                         'exp' => '%res:import.ini',
                         '%res%' => 'import.ini',
-                        '%module%' => '::SERVICES'
+                        '%module%' => '::SERVICES',
+                        'modules' => '%module:::SERVICES'
                     ]
                 ]
             ],
@@ -161,7 +162,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                         'test' => true,
                         'exp' => '%res:import.ini',
                         '%res%' => 'import.ini',
-                        '%module%' => '::SERVICES'
+                        '%module%' => '::SERVICES',
+                        'modules' => '%module:::SERVICES'
                     ]
                 ]
             ],
@@ -173,7 +175,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                         'test' => true,
                         'exp' => '%res:import.ini',
                         '%res%' => 'import.ini',
-                        '%module%' => '::SERVICES'
+                        '%module%' => '::SERVICES',
+                        'modules' => '%module:::SERVICES'
                     ]
                 ]
             ],
@@ -185,7 +188,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                         'test' => true,
                         'exp' => '%res:import.ini',
                         '%res%' => 'import.ini',
-                        '%module%' => '::SERVICES'
+                        '%module%' => '::SERVICES',
+                        'modules' => '%module:::SERVICES'
                     ]
                 ]
             ]
@@ -207,7 +211,10 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                         ],
                         'import' => true,
                         'env' => 'dev',
-                        'module' => true
+                        'module' => true,
+                        'modules' => [
+                            'module' => true
+                        ]
                     ]
                 ]
             ],
@@ -223,7 +230,10 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                         ],
                         'import' => true,
                         'env' => 'dev',
-                        'module' => true
+                        'module' => true,
+                        'modules' => [
+                            'module' => true
+                        ]
                     ]
                 ]
             ],
@@ -239,7 +249,10 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                         ],
                         'import' => true,
                         'env' => 'dev',
-                        'module' => true
+                        'module' => true,
+                        'modules' => [
+                            'module' => true
+                        ]
                     ]
                 ]
             ],
@@ -255,7 +268,10 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                         ],
                         'import' => true,
                         'env' => 'prod',
-                        'module' => true
+                        'module' => true,
+                        'modules' => [
+                            'module' => true
+                        ]
                     ]
                 ]
             ],
@@ -271,7 +287,10 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                         ],
                         'import' => true,
                         'env' => 'prod',
-                        'module' => true
+                        'module' => true,
+                        'modules' => [
+                            'module' => true
+                        ]
                     ]
                 ]
             ],
@@ -287,7 +306,10 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                         ],
                         'import' => true,
                         'env' => 'prod',
-                        'module' => true
+                        'module' => true,
+                        'modules' => [
+                            'module' => true
+                        ]
                     ]
                 ]
             ],
@@ -303,7 +325,10 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                         ],
                         'import' => true,
                         'env' => null,
-                        'module' => true
+                        'module' => true,
+                        'modules' => [
+                            'module' => true
+                        ]
                     ]
                 ]
             ]

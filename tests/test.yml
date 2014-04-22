@@ -3,3 +3,4 @@ test:
   exp: %res:import.ini
   %res%: import.ini
   %module%: ::SERVICES
+  modules: %module:::SERVICES

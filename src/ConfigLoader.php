@@ -109,29 +109,20 @@ class ConfigLoader
                     );
 
                 } elseif ($key === self::MODULE_KEY) {
-                    $val = explode('::', $value);
 
-                    /**
-                     * @var $module \GetSky\Phalcon\Bootstrap\Module
-                     */
-                    $module = $val[0] . '\Module';
-
-                    if ($val[1] == 'SERVICES') {
-                        $resources = $this->create(
-                            $module::DIR . $module::SERVICES
-                        );
-                    } elseif ($val[1] == 'CONFIG') {
-                        $resources = $this->create(
-                            $module::DIR . $module::CONFIG
-                        );
-                    } else {
-                        $resources = $this->create(
-                            $module::DIR . $module::$val[1]
-                        );
-                    }
-
-                    $baseConfig->merge($resources);
+                    $baseConfig->merge($this->moduleConfigCreate($value));
                     $baseConfig->offsetUnset($key);
+
+                } elseif (substr_count($value, self::MODULE_VALUE)) {
+
+                    $baseConfig[$key] =
+                        $this->moduleConfigCreate(
+                            substr(
+                                $value,
+                                strlen(self::MODULE_VALUE)
+                            )
+                        );
+
                 }
 
                 if (substr_count($value, self::ENVIRONMENT)) {
@@ -143,6 +134,32 @@ class ConfigLoader
                 }
             }
         }
+    }
+
+    protected function moduleConfigCreate($path)
+    {
+        $value = explode('::', $path);
+
+        /**
+         * @var $module \GetSky\Phalcon\Bootstrap\Module
+         */
+        $module = $value[0] . '\Module';
+
+        if ($value[1] == 'SERVICES') {
+            $resources = $this->create(
+                $module::DIR . $module::SERVICES
+            );
+        } elseif ($value[1] == 'CONFIG') {
+            $resources = $this->create(
+                $module::DIR . $module::CONFIG
+            );
+        } else {
+            $resources = $this->create(
+                $module::DIR . $module::$value[1]
+            );
+        }
+
+        return $resources;
     }
 
     /**

@@ -3,6 +3,7 @@
         "test": true,
         "exp": "%res:import.ini",
         "%res%": "import.ini",
-        "%module%": "::SERVICES"
+        "%module%": "::SERVICES",
+        "modules": "%module:::SERVICES"
     }
 }
