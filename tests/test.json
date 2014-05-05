@@ -4,6 +4,7 @@
         "exp": "%res:import.ini",
         "%res%": "import.ini",
         "%module%": "::SERVICES",
-        "modules": "%module:::SERVICES"
+        "modules": "%module:::SERVICES",
+        "import": false
     }
 }

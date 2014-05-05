@@ -80,7 +80,7 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
     public function testClearConfig()
     {
         $test = new ConfigLoader('prod');
-        $result = $test->clear($test->create('../../tests/test.ini'), $test->create('../../tests/means.ini'));
+        $result = $test->clear($test->create('test.ini'), $test->create('means.ini'));
 
         $this->assertEquals($result, new Config(['foo' => 1]));
     }
@@ -200,7 +200,8 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
                         'exp' => '%res:import.ini',
                         '%res%' => 'import.ini',
                         '%module%' => '::SERVICES',
-                        'modules' => '%module:::SERVICES'
+                        'modules' => '%module:::SERVICES',
+                        'import' => false
                     ]
                 ]
             ]

@@ -4,3 +4,4 @@ test:
   %res%: import.ini
   %module%: ::SERVICES
   modules: %module:::SERVICES
+  import: false
