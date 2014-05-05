@@ -2,6 +2,7 @@
 namespace GetSky\Phalcon\ConfigLoader;
 
 use Phalcon\Config as BaseConfig;
+use Phalcon\Config;
 use Phalcon\Di;
 
 /**
@@ -98,7 +99,7 @@ class ConfigLoader
 
                 if ($key === self::RESOURCES_KEY) {
 
-                    $resources = $this->create($value);
+                    $resources = $this->clear($baseConfig, $this->create($value));
                     $baseConfig->merge($resources);
                     $baseConfig->offsetUnset($key);
 
@@ -134,6 +135,17 @@ class ConfigLoader
                 }
             }
         }
+    }
+
+    public function clear(Config $means, Config $target)
+    {
+        foreach ($target as $key => $value) {
+            if (isset($means[$key])) {
+                $target->offsetUnset($key);
+            }
+        }
+
+        return new BaseConfig($target->toArray());
     }
 
     protected function moduleConfigCreate($path)
