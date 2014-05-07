@@ -1,5 +1,5 @@
 <?php
-namespace GetSky\Phalcon\ConfigLoader;
+namespace GetSky\Phalcon\ConfigLoader\Exception;
 
 use Exception;
 

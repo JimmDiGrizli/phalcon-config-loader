@@ -1,7 +1,6 @@
 <?php
 
-class Module
+class FakeModule
 {
-    const DIR = __DIR__;
     const SERVICES = '/services.ini';
 } 

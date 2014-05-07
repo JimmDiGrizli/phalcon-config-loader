@@ -3,8 +3,8 @@
         "test": true,
         "exp": "%res:import.ini",
         "%res%": "import.ini",
-        "%module%": "::SERVICES",
-        "modules": "%module:::SERVICES",
+        "%class%": "Module::SERVICES",
+        "modules": "%class:Module::SERVICES",
         "import": false
     }
 }
