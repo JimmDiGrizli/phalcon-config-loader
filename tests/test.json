@@ -1,0 +1,10 @@
+{
+    "test": {
+        "test": true,
+        "exp": "%res:import.ini",
+        "%res%": "import.ini",
+        "%class%": "Module::SERVICES",
+        "modules": "%class:Module::SERVICES",
+        "import": false
+    }
+}
