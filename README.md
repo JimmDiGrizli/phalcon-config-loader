@@ -20,6 +20,12 @@ $config_yml = $configloader->create('config.yml');
 echo $config_yml->test;
 // print: prod 
 ```
+To add your adapter, you must call ```add ()``` with the transfer expansion and adapter class, 
+which must inherit a class ```Phalcon\Config```:
+
+```php
+$config = $configLoader->add('xml', 'MyNamespace/XmlConfig');
+```
 
 Moreover, you can import the configuration files in some others:
 
