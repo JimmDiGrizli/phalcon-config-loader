@@ -173,7 +173,7 @@ class ConfigLoader
     public function clear(Config $means, Config $target)
     {
         foreach ($target as $key => $value) {
-            if ($value instanceof BaseConfig) {
+            if ($value instanceof BaseConfig && isset($means[$key])) {
                 $this->clear($means[$key], $value);
             } else {
                 if (isset($means[$key])) {
