@@ -75,7 +75,7 @@ The result loading configuration from ```config.ini```:
         ],
         'class' => "class",
         'impot-class' => [
-            'import-class' => "class"
+            'class' => "class"
         ]
     ]                           
 ]                               
