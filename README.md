@@ -36,8 +36,8 @@ Moreover, you can merge configuration files:
 test = true
 %res% = import.ini
 exp = %res:import.ini
-%class% = Namespace/Class::SERVICES
-import-class =  %class:Namespace/Class::SERVICES
+%class% = Test/Class::SERVICES
+import-class =  %class:Test/Class::SERVICES
 
 ```
 
@@ -47,7 +47,7 @@ import = "test"
 ```
 
 ```php
-namespace Namespace;
+namespace Test;
 
 class Class {
   const SERVICES = '/const.ini';
