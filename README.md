@@ -64,3 +64,10 @@ bar = bar
 test = config-test
 bar = bar
 ```
+
+If you do not want to import resources (loading of the other configuration files in this configuration), the second parameter must pass a boolean ```false ```:
+
+```php
+$config = $configLoader->create('config.ini', false);
+```
+
