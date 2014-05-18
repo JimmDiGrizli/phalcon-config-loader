@@ -27,18 +27,58 @@ which must inherit a class ```Phalcon\Config```:
 $config = $configLoader->add('xml', 'MyNamespace/XmlConfig');
 ```
 
-Moreover, you can import the configuration files in some others:
+Moreover, you can merge configuration files:
+
 
 ```ini
-# config.ini
-  
-# Path from configuration file
-%res% = 'config.yml
-import-file = $res:config.yml
-  
-# Path from class's constant of class
+#config.ini
+[test]
+test = true
+%res% = import.ini
+exp = %res:import.ini
 %class% = Namespace/Class::SERVICES
 import-class =  %class:Namespace/Class::SERVICES
+
+```
+
+```ini
+#import.ini
+import = "test"
+```
+
+```php
+namespace Namespace;
+
+class Class {
+  const SERVICES = '/const.ini';
+}
+```
+
+
+```ini
+#const.ini
+class = "class"
+```
+
+
+The result loading configuration from ```config.ini```:
+
+```php
+[                               
+    'test' => [                 
+        'test' => true,                             
+        'import' => true,       
+        'env' => 'dev',
+        'exp' => [
+            'import' => true,
+            'env' => 'dev'
+        ],
+        'class' => "class",
+        'impot-class' => [
+            'import-class' => "class"
+        ]
+    ]                           
+]                               
 ```
 
 Declared variables in the parent file will not be replaced by variables from the child (only %res% or %class%):
@@ -49,7 +89,6 @@ Declared variables in the parent file will not be replaced by variables from the
 [foo]
 test = config-test
 ```
-
 
 ```ini
 # /app/config/include.ini
