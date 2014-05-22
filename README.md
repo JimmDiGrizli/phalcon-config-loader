@@ -1,4 +1,4 @@
-ConfigLoader [![Build Status](https://travis-ci.org/JimmDiGrizli/phalcon-config-loader.png?branch=develop)](https://travis-ci.org/JimmDiGrizli/phalcon-config-loader)
+ConfigLoader [![Build Status](https://travis-ci.org/JimmDiGrizli/phalcon-config-loader.png?branch=develop)](https://travis-ci.org/JimmDiGrizli/phalcon-config-loader) [![Dependency Status](https://www.versioneye.com/user/projects/537c85fe14c1580a86000103/badge.svg)](https://www.versioneye.com/user/projects/537c85fe14c1580a86000103)
 ===============================
 
 ConfigLoader - it's manager configuration files for Phalcon. It allows you to create a configuration of various formats (ini, yaml, JSON, or any other, for which you will add adapter) via a single method. 
