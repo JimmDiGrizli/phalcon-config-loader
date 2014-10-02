@@ -20,9 +20,9 @@ class Yaml extends Config
                     "Configuration file $filePath can't be loaded"
                 );
             }
+        } else {
+            $result = SymfonyYaml::parse($filePath);
         }
-
-        $result = SymfonyYaml::parse($filePath);
 
         parent::__construct($result);
     }
