@@ -49,6 +49,9 @@ class ConfigLoader
     public function __construct($environment = null)
     {
         $this->environment = $environment;
+        if (class_exists('\Phalcon\Config\Adapter\Yaml')) {
+            $this->adapters['yml'] = '\Phalcon\Config\Adapter\Yaml';
+        }
     }
 
     /**

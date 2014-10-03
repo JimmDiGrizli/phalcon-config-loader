@@ -161,6 +161,21 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
         $test->add('ini', '\Phalcon\DI');
     }
 
+    public function testPhalconAdapterYamlEnable()
+    {
+        $yaml = $this->getMock('\Phalcon\Config\Adapter\Yaml');
+        $loader = new ConfigLoader();
+
+        $this->assertEquals(
+            [
+                'ini' => '\Phalcon\Config\Adapter\Ini',
+                'json' => '\Phalcon\Config\Adapter\Json',
+                'yml' => '\Phalcon\Config\Adapter\Yaml'
+            ],
+            $loader->getAdapters()
+        );
+    }
+
     public function pathExtensionProvider()
     {
         return [
