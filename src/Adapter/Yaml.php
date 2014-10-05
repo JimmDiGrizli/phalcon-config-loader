@@ -14,7 +14,7 @@ class Yaml extends Config
      */
     public function __construct($filePath)
     {
-        if (extension_loaded('yaml')) {
+        if (function_exists('yaml_parse_file')) {
             if (false === $result = yaml_parse_file($filePath)) {
                 throw new Exception(
                     "Configuration file $filePath can't be loaded"
