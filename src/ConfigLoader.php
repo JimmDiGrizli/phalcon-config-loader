@@ -74,17 +74,42 @@ class ConfigLoader
         }
 
         if (isset($this->adapters[$extension])) {
-            /**
-             * @var $baseConfig BaseConfig
-             */
-            $baseConfig = new $this->adapters[$extension]($path);
-            if ($import === true) {
-                $this->importResource($baseConfig);
-            }
-            return new BaseConfig($baseConfig->toArray());
+            return $this->build($path, $extension, $import);
         }
 
         throw new AdapterNotFoundException("Adapter can be found for $path");
+    }
+
+    /**
+     * @param string $string Config in string
+     * @param string $extension Format of config
+     * @param bool $import Import encountered config files
+     * @return Config
+     * @throws AdapterNotFoundException
+     */
+    public function fromText($string, $extension, $import = true)
+    {
+        if (isset($this->adapters[$extension])) {
+            file_put_contents('cache.config', $string);
+            $config = $this->build('cache.config', $extension, $import);
+            unlink('cache.config');
+            return $config;
+        }
+
+        throw new AdapterNotFoundException("Adapter can be found for string.");
+    }
+
+    protected function build($path, $extension, $import = true)
+    {
+        /**
+         * @var $baseConfig BaseConfig
+         */
+        $baseConfig = new $this->adapters[$extension]($path);
+        if ($import === true) {
+            $this->importResource($baseConfig);
+        }
+
+        return  new BaseConfig($baseConfig->toArray());
     }
 
     /**
