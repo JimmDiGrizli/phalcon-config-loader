@@ -6,6 +6,10 @@ ConfigLoader - it's manager configuration files for Phalcon. It allows you to cr
 ```php
 $configYml = $configLoader->create('config.yml');
 $configIni = $configLoader->create('config.ini');
+
+// or use string
+$string = 'foo = bar'
+$configFromText = $configLoader->fromText($string, 'ini');
 ```
 
 ConfigLoader is able to track ```%environment%``` in configuration files and replace it on our environment.
