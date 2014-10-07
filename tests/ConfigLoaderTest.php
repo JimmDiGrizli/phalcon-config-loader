@@ -98,6 +98,19 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * @dataProvider stringProvider
+     * @param $string
+     * @param $format
+     */
+    public function testCreateFromText($string, $format)
+    {;
+        $test = new ConfigLoader('dev');
+        $config = $test->fromText($string, $format);
+        $this->assertSame('bar', $config['foo']);
+
+    }
+
+    /**
      * @dataProvider pathProvider
      */
     public function testCreateWithoutImportResources($path, $env, $array)
@@ -161,6 +174,21 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
         $test->add('ini', '\Phalcon\DI');
     }
 
+    public function testPhalconAdapterYamlEnable()
+    {
+        $yaml = $this->getMock('\Phalcon\Config\Adapter\Yaml');
+        $loader = new ConfigLoader();
+
+        $this->assertEquals(
+            [
+                'ini' => '\Phalcon\Config\Adapter\Ini',
+                'json' => '\Phalcon\Config\Adapter\Json',
+                'yml' => '\Phalcon\Config\Adapter\Yaml'
+            ],
+            $loader->getAdapters()
+        );
+    }
+
     public function pathExtensionProvider()
     {
         return [
@@ -169,6 +197,15 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
             ['test.ini', 'ini'],
             ['.ini', 'ini'],
             ['test', null]
+        ];
+    }
+
+    public function stringProvider()
+    {
+        return [
+            ['foo = bar', 'ini'],
+            ['foo: bar', 'yml'],
+            ['{"foo": "bar"}', 'json']
         ];
     }
 
