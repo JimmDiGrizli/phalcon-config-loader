@@ -40,7 +40,8 @@ class ConfigLoader
     protected $adapters = [
         'ini' => '\Phalcon\Config\Adapter\Ini',
         'json' => '\Phalcon\Config\Adapter\Json',
-        'yml' => '\GetSky\Phalcon\ConfigLoader\Adapter\Yaml'
+        'yml' => '\GetSky\Phalcon\ConfigLoader\Adapter\Yaml',
+        'php' => '\Phalcon\Config\Adapter\Php'
     ];
 
     /**
@@ -90,13 +91,29 @@ class ConfigLoader
     public function fromText($string, $extension, $import = true)
     {
         if (isset($this->adapters[$extension])) {
-            file_put_contents('cache.config', $string);
-            $config = $this->build('cache.config', $extension, $import);
-            unlink('cache.config');
+            $md = md5($string);
+            file_put_contents('cache.config.' . $md, $string);
+            $config = $this->build('cache.config.' . $md, $extension, $import);
+            unlink('cache.config.' . $md);
             return $config;
         }
 
         throw new AdapterNotFoundException("Adapter can be found for string.");
+    }
+
+    /**
+     * @param array $config Config in array
+     * @param bool $import Import encountered config files
+     * @return Config
+     */
+    public function fromArray(array $config, $import = true)
+    {
+        $baseConfig = new BaseConfig($config);
+        if ($import === true) {
+            $this->importResource($baseConfig);
+        }
+
+        return $baseConfig;
     }
 
     protected function build($path, $extension, $import = true)

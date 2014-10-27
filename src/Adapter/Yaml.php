@@ -9,7 +9,7 @@ class Yaml extends Config
 {
 
     /**
-     * @param array|null $filePath
+     * @param string $filePath
      * @throws Exception
      */
     public function __construct($filePath)
