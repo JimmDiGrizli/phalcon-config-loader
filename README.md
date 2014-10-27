@@ -1,15 +1,21 @@
 ConfigLoader [![Build Status](https://travis-ci.org/JimmDiGrizli/phalcon-config-loader.png?branch=develop)](https://travis-ci.org/JimmDiGrizli/phalcon-config-loader) [![Dependency Status](https://www.versioneye.com/user/projects/537c85fe14c1580a86000103/badge.svg)](https://www.versioneye.com/user/projects/537c85fe14c1580a86000103)
 ===============================
 
-ConfigLoader - it's manager configuration files for Phalcon. It allows you to create a configuration of various formats (ini, yaml, JSON, or any other, for which you will add adapter) via a single method. 
+ConfigLoader - it's manager configuration files for Phalcon. It allows you to create a configuration of various formats (ini, yaml, JSON, PHP arrays or any other, for which you will add adapter) via a single method. 
 
 ```php
 $configYml = $configLoader->create('config.yml');
 $configIni = $configLoader->create('config.ini');
+$configPhp = $configLoader->create('config.php');
+
 
 // or use string
 $string = 'foo = bar'
 $configFromText = $configLoader->fromText($string, 'ini');
+
+// or use arrays
+$config = ['foo' => 'bar'];
+$configFromArray = $configLoader->fromArray($config);
 ```
 
 ConfigLoader is able to track ```%environment%``` in configuration files and replace it on our environment.
@@ -33,7 +39,6 @@ $config = $configLoader->add('xml', 'MyNamespace/XmlConfig');
 
 Moreover, you can merge configuration files:
 
-
 ```ini
 #config.ini
 [test]
@@ -42,7 +47,6 @@ test = true
 exp = %res:import.ini
 %class% = Test/Class::SERVICES
 import-class =  %class:Test/Class::SERVICES
-
 ```
 
 ```ini
@@ -63,7 +67,6 @@ class Class {
 #const.ini
 class = "class"
 ```
-
 
 The result loading configuration from ```config.ini```:
 
