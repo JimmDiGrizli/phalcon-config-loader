@@ -107,11 +107,28 @@ class ConfigLoaderTest extends PHPUnit_Framework_TestCase
      * @param $format
      */
     public function testCreateFromText($string, $format)
-    {;
+    {
         $test = new ConfigLoader('dev');
         $config = $test->fromText($string, $format);
         $this->assertSame('bar', $config['foo']);
 
+    }
+
+    public function testCreateFromArray()
+    {
+        $test = new ConfigLoader('dev');
+        $config = $test->fromArray(['foo' => 'bar']);
+        $this->assertSame('bar', $config['foo']);
+
+    }
+
+    /**
+     * @expectedException  \GetSky\Phalcon\ConfigLoader\Exception\AdapterNotFoundException
+     */
+    public function testCreateFromTextException()
+    {;
+        $test = new ConfigLoader('dev');
+        $config = $test->fromText('foo: bar', 'error');
     }
 
     /**
