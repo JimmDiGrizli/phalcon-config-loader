@@ -141,7 +141,7 @@ class ConfigLoader
         foreach ($baseConfig as $key => $value) {
             if ($value instanceof BaseConfig) {
                 $this->importResource($value);
-            } else {
+            } elseif (is_string($value)) {
 
                 if ($key === self::RESOURCES_KEY) {
 
