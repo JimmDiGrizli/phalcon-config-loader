@@ -159,9 +159,7 @@ class ConfigLoader
             if ($value instanceof BaseConfig) {
                 $this->importResource($value);
             } elseif (is_string($value)) {
-
                 if ($key === self::RESOURCES_KEY) {
-
                     $resources = $this->clear(
                         $baseConfig,
                         $this->create($value)
@@ -170,13 +168,11 @@ class ConfigLoader
                     $baseConfig->offsetUnset($key);
 
                 } elseif (substr_count($value, self::RESOURCES_VALUE)) {
-
                     $baseConfig[$key] = $this->create(
                         substr($value, strlen(self::RESOURCES_VALUE))
                     );
 
                 } elseif ($key === self::MODULE_KEY) {
-
                     $resources = $this->clear(
                         $baseConfig,
                         $this->moduleConfigCreate($value)
@@ -186,7 +182,6 @@ class ConfigLoader
                     $baseConfig->offsetUnset($key);
 
                 } elseif (substr_count($value, self::MODULE_VALUE)) {
-
                     $baseConfig[$key] =
                         $this->moduleConfigCreate(
                             substr(
